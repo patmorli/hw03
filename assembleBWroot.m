@@ -43,12 +43,13 @@ SPEED = 1.25;       % nominal speed of 1.25 m/s
 %   SL/2 - L*sin(q10) = FWDP
 q10 = asin((SL/2 - FWDP)/L);
 
-q20 = 0*pi/180; q30 = -50*pi/180; % initial guesses, converted from deg
+q20 = -30*pi/180;
+q30 = -50*pi/180; % initial guesses, converted from deg
 q23 = [q20; q30]; % contains values for q2 and q3
 
 % Since q1 is already determined, the error in toe position only depends
 % on q2 and q3. The error returned has two components, x and y
-initialToeError = toeerror23(q23); 
+initialToeError = toeerror(q23); 
 fprintf(1,'Initial guess q = [%g %g %g]\n', [q10 q20 q30]);
 fprintf(1,'Initial toe error = %g %g\n', initialToeError);
 
@@ -60,13 +61,13 @@ legend('Initial toe position', 'Target toe position');
 drawballwalk([q10 q20 q30]); % draw a stick model 
 
 % now solve for the q2 and q3 that yield the desired toe position
-q23star = ; %% PUT YOUR CODE HERE TO USE FINDROOT TO DETERMINE ASSEMBLY 
+q23star = findroot(@toeerror, q23); %% PUT YOUR CODE HERE TO USE FINDROOT TO DETERMINE ASSEMBLY 
 
 qs = [q10; q23star(1); q23star(2)]; % return the solution
 
 % Plot the final configuration after finding the root
 fprintf(1,'Final value   q = [%g %g %g]\n', [q10 q23star(1) q23star(2)]);
-fprintf(1,'Final toe error = %g %g\n', toeerror23(q23star));
+fprintf(1,'Final toe error = %g %g\n', toeerror(q23star));
 drawballwalk(qs);
 
 % next part: find combinations of q's to produce desired x's
@@ -113,7 +114,7 @@ fprintf(1,'The solution from findroot is [%g; %g; %g]\n', qsoln2);
 %% Subfunctions below are called by main program, and have access
 % to parameter values
 
-function err = toeerror23(q23) 
+function err = toeerror(q23) 
 % Returns the horizontal and vertical toe positions p = [xtoe; ytoe],
 % as an error relative to the desired toe position. The desired toe 
 % position puts the toe one step length (minus a foot
@@ -133,11 +134,11 @@ q10 = asin((SL/2 - FWDP)/L);
 q20 = q23(1); q30 = q23(2);
 
 % This is the position of the swing toe relative to the stance heel
-xtoe = -l1*sin(q10) + l2*sin(q20) + l3*sin(q30) + lfoot*sin(q30+pi/2);
+xtoe = (-l1*sin(q10) + l2*sin(q20) + l3*sin(q30) + lfoot*sin(q30+pi/2));
 ytoe = l1*cos(q10) - l2*cos(q20) - l3*cos(q30) - lfoot*cos(q30+pi/2);
 
 % Calculate the error between actual and desired toe positions
-err = [ ;  ]; %% PUT YOUR CODE HERE TO CALCULATE THE ERROR IN X AND Y POSITIONS:
+err = [ (-SL+lfoot)-xtoe ; 0-ytoe ]; %% PUT YOUR CODE HERE TO CALCULATE THE ERROR IN X AND Y POSITIONS:
 % (This should be a vector that, when placed at the current toe position,
 % will point towards the desired toe position.)
 

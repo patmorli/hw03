@@ -1,0 +1,41 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
+\margl1440\margr1440\vieww14160\viewh16580\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \
+1A)\
+Parameters are being set in the beginning of the code. \
+Joint angles for calculations are set: from 180degrees to 90 degrees. This parameterizes the for loop\
+For loop:\
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural\partightenfactor0
+\ls1\ilvl0\cf0 {\listtext	\uc0\u8226 	}calculates normalized muscle length with optimal fiber length\
+{\listtext	\uc0\u8226 	}calculate the actual muscle force with two functions. Active and passive muscle forces get added up and multiplied with the maximum force to non-normalize the force. \
+{\listtext	\uc0\u8226 	}Available moment: Forces produced because of the moment arm and the force in the muscle minus the force that is produced because of the mass and angle of the body segment and gravity \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+1B)\
+The blue curve represents the passive normalized force. It rises at the optimal fiber length\
+The red curve represents the active normalized force. It rises before the optimal fiber lengths, has its peak at the optimal fiber length and falls after the optimal fiber length.\
+\
+1C) Depending on the extension velocity, the force will increase. Higher velocity are correlated with higher forces until it reaches a certain velocity. \
+\
+1D) The tendon would add some force due to its spring like behaviour. \
+\
+2D) Using the transmission rule gives us the relationship between the joint torques and the force on the whole body center of mass\
+\
+2E) The columns of the Jacobian represents how much each segments contributes to the whole center of mass velocity. \
+\
+2F) The rows of the Jacobian represent how much each dimension contributes to the whole center of mass velocity. \
+\
+3B) We have the initial position, which means that the swing leg is at toe off. Then we make guesses for the initial angular velocities. We simulate the movement of the swing leg using an ode solver function and get the final position of the swing leg. The error function would consist of a vector with three terms. We want to find the root of this function. One term explains the step length which is the distance between the two heels. Actual distance minus the step length should be zero. The second term explains the thigh and shank angle. Shank angle minus thigh angle should equal 0. The third term explains the actual step time and the desired step time. Actual step time minus desired step time should be zero. The find root function will find the initial velocities that are needed to find our roots. \
+\
+4a) As the slope gets smaller, the speed gets smaller as well, because the energy is lost in the collision. Below 0.03 the wheel can\'92t take a step, because there is not enough energy to lift the center of mass high enough. \
+\
+4B) More interleg angle leads to more energy loss at the collision. As the angle grows, less energy will be transferred to the next step, which also means that at an alpha that is >0.33, the wheel can\'92t take another step anymore for the given parameters.\
+\
+4C) If the parameter is varied by just small increments, this means that the phase space basin of attraction will also not change too much. There will probably even be an overlap between the phase space basin of attraction of the old and the new parameter. By using the solution of the previous root -finding calculation as the new initial guess, the probability to be within the new phase space basin of attraction is higher than by just using a new random initial guess. }

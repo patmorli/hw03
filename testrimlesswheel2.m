@@ -42,15 +42,15 @@ xlabel('time (dimensionless)');
 ylabel('energy (dimensionless)');
 title('energies vs. time for final step of rimless wheel');
 
-%% Thetadot per step 
-clf
-plot(0:length(xends)-1, xends(:,2),'.')
-xlabel('step number');
-ylabel('initial thetadot (dimensionless)');
-title('initial thetadot vs. step number');
-hold on
-plot([0,length(xends)-1], thetadotplusstar*[1 1],':')
-legend('thetadot', 'analytical limit cycle')
+% %% Thetadot per step 
+% clf
+% plot(0:length(xends)-1, xends(:,2),'.')
+% xlabel('step number');
+% ylabel('initial thetadot (dimensionless)');
+% title('initial thetadot vs. step number');
+% hold on
+% plot([0,length(xends)-1], thetadotplusstar*[1 1],':')
+% legend('thetadot', 'analytical limit cycle')
 
 %% Test energy conservation of final step
 % We expect energy to be conserved for rimless wheel
@@ -89,7 +89,7 @@ thetadotfinal = xstar(2); % thetadotplus for limit cycle
 assert(abs(thetadotplusstar - thetadotfinal) < abstol,'error');
 
 %% Parameter study of speed vs slope
-gammas = linspace(0.03, 0.06, 15);
+gammas = linspace(0.03, 0.1, 15);
 thetadot = -0.3; % first try for thetadot
 
 xstars = zeros(length(gammas),2);
